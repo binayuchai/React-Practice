@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-
 export default function Navbar() {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+      setIsOpen(!isOpen);
+    };
+
   return (
     <>
       <nav className="bg-gray-800">
@@ -40,7 +46,19 @@ export default function Navbar() {
             <Link to="/" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</Link>
             <Link to="/about" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</Link>
             <Link to="/news" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">News</Link>
-
+            <div className="relative">
+      <button
+        className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+        onClick={toggleDropdown}
+      >      News</button>
+      <ul
+        className={`absolute ${isOpen ? '' : 'hidden'} mt-2 space-y-2 bg-white text-black rounded shadow-md w-[8rem]`}
+      >
+        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer"><Link to="/about">Sports</Link></li>
+        <li className="px-4 py-2 hover-bg-gray-100 cursor-pointer"><Link to="/about">Politics</Link></li>
+        <li className="px-4 py-2 hover-bg-gray-100 cursor-pointer"><Link to="/about">Entertainment</Link></li>
+      </ul>
+    </div>
             {/* <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
             <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a> */}
           </div>
