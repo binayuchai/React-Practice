@@ -10,7 +10,11 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route path=""element={<Home/>}/>
       <Route path="about" element={<About/>}/>
-      <Route path="news" element={<News pageSize={5}/>}/>
+      <Route exact path="news/entertainment" element={<News key="entertainment" category='entertainment'/>}/>
+      <Route exact path="news/sports" element={<News key="sports" category='sports' />}/>
+      <Route exact path="news/business" element={<News key="business" category='business' />}/>
+
+
 
 
     </Route>

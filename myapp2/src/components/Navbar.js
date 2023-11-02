@@ -1,13 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 export default function Navbar() {
 
     const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef(null)
 
     const toggleDropdown = () => {
       setIsOpen(!isOpen);
     };
-
+    useEffect(()=>{
+      function handleDocumentClick(event){
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)){
+          setIsOpen(false)
+        }
+      }
+      document.addEventListener('click',handleDocumentClick)
+      return()=>{
+        document.removeEventListener('click',handleDocumentClick);
+      }
+    },[])
   return (
     <>
       <nav className="bg-gray-800">
@@ -45,8 +56,7 @@ export default function Navbar() {
             {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
             <Link to="/" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</Link>
             <Link to="/about" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</Link>
-            <Link to="/news" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">News</Link>
-            <div className="relative">
+            <div className="relative" ref={dropdownRef}>
       <button
         className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
         onClick={toggleDropdown}
@@ -54,9 +64,9 @@ export default function Navbar() {
       <ul
         className={`absolute ${isOpen ? '' : 'hidden'} mt-2 space-y-2 bg-white text-black rounded shadow-md w-[8rem]`}
       >
-        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer"><Link to="/about">Sports</Link></li>
-        <li className="px-4 py-2 hover-bg-gray-100 cursor-pointer"><Link to="/about">Politics</Link></li>
-        <li className="px-4 py-2 hover-bg-gray-100 cursor-pointer"><Link to="/about">Entertainment</Link></li>
+        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer"><Link to="/news/sports">Sports</Link></li>
+        <li className="px-4 py-2 hover-bg-gray-100 cursor-pointer"><Link to="/news/business">Business</Link></li>
+        <li className="px-4 py-2 hover-bg-gray-100 cursor-pointer"><Link to="/news/entertainment">Entertainment</Link></li>
       </ul>
     </div>
             {/* <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
@@ -74,10 +84,28 @@ export default function Navbar() {
   <div className="sm:hidden" id="mobile-menu">
     <div className="space-y-1 px-2 pb-3 pt-2">
       {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-      <Link to="/" className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Home</Link>
-      <Link to="/about" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</Link>
-      <Link to="/news" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">News</Link>
-
+  
+      <Link to="/" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</Link>
+      <Link to="/about" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</Link>
+                <div className="relative">
+          <button
+            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+            onClick={toggleDropdown}
+          >      News</button>
+          <ul
+            className={`absolute ${isOpen ? '' : 'hidden'} mt-2 space-y-2 bg-white text-black rounded shadow-md w-[8rem]`}
+          >
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer"><Link to="/news/sports">Sports</Link></li>
+            <li className="px-4 py-2 hover-bg-gray-100 cursor-pointer"><Link to="/news/business">Business</Link></li>
+            <li className="px-4 py-2 hover-bg-gray-100 cursor-pointer"><Link to="/news/entertainment">Entertainment</Link></li>
+          </ul>
+        </div>
+            {/* <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
+            <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a> */}
+          {/* </div>
+        </div>
+      </div> */}
+    
       {/* <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
       <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a> */}
     </div>
