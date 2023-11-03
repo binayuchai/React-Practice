@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function About() {
+  document.title = `About`
   return (
     <div className="container mx-auto px-8">
       <h1 className='font-bold text-4xl text-center my-8'>About Page</h1>

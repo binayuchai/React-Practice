@@ -27,10 +27,12 @@ export default class News extends Component {
             page:1,
             
         }
-    }
-    
-    async componentDidMount(){
-      console.log("I am mount")
+        // document.title = `${this.capitalizerFirstLetter(this.props.category)} - News`;
+      }
+      
+      async componentDidMount(){
+        console.log("I am mount")
+        document.title = `${this.props.category} - News`
 
 
 
