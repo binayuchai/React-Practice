@@ -12,7 +12,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route path=""element={<Home/>}/>
       <Route path="about" element={<About/>}/>
-      <Route exact path="news/entertainment" element={<News key="entertainment"  apiKey={apiKey} category='entertainment'/>}/>
+      <Route exact path="news/entertainment" element={<News key="entertainment" apiKey={apiKey} category='entertainment'/>}/>
       <Route exact path="news/sports" element={<News key="sports" apiKey={apiKey} category='sports' />}/>
       <Route exact path="news/business" element={<News key="business"  apiKey={apiKey} category='business' />}/>
 
